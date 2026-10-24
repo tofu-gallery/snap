@@ -24,7 +24,7 @@ Snap! ("Build Your Own Blocks") is the visual, block-based programming language 
 - Base upstream commit: `9f0770850a74542298bc5d89202d72c31769695c` ("prepared v12.3.5 patch", 2026-10-21), Snap! 12.3.5.
 - Fork: https://github.com/tofu-gallery/snap
 - `main` mirrors that upstream commit unchanged; `tofu` holds the adaptations, one commit per change with its reason.
-- The verified adapted revision is tagged `pin/2026-10-23`.
+- The verified adapted revision is tagged `pin/2026-10-24`. The earlier `pin/2026-10-23` lacks the source links of step 7.
 
 What changed and why:
 
@@ -34,6 +34,7 @@ What changed and why:
 4. **Unlisted backgrounds and sounds removed.** After step 3 the archive was still 54.5 MB, over Tofu's 50 MB import limit. The Backgrounds… and Sounds… dialogs offer exactly the files named in `Backgrounds/BACKGROUNDS.json` and `Sounds/SOUNDS.json`, 12 each. The other 91 files in `Backgrounds/` and 229 in `Sounds/` (23.6 MB) are named nowhere else either: not in `sw.js`, `src/`, `snap.html`, the libraries, the examples or the translations. Projects carry their own media, so no saved project needs them. The indexes, every listed file and the whole `Costumes/` library (546 costumes) stay. The removed files are listed at the end of this document.
 5. **TuneScope's MIDI helper moved out of a `build/` folder.** Tofu's import drops every folder named `build` or `dist`, at any depth. TuneScope's setup loads `libraries/TuneScope/tonejs/package/build/Midi.js` with `src_load`, which waits for the script to load and has no error path, so in a Tofu copy TuneScope's blocks would wait forever. `Midi.js` (Tone.js MIDI 2.0.28, MIT, licence in that folder's `LICENSE.md`) is copied byte for byte to `libraries/TuneScope/tonejs/package/Midi.js`, and the one `src_load` in `libraries/TuneScope.xml` points there. The upstream `build/` copy stays in the repository.
 6. **This `TOFU.md`** was added.
+7. **`src/gui.js`: the IDE links to this copy's own source.** Upstream's "Download source" item in the Snap! logo menu opened upstream's latest release, which is not the code a copy runs. It now opens this fork at the tag `pin/2026-10-24`, and the About dialog ends with the same address. A notice at the top of `src/gui.js` records the change. See "Source links" below.
 
 What a copy loses compared with https://snap.berkeley.edu/snap/: the Snap!Cloud (signing in, saving to and opening from the cloud, sharing, and the community site's features), which could not work from another site anyway; the printable manual, which stays online; and the two demo pages. The media removal takes away nothing a user can reach in the IDE.
 
@@ -46,6 +47,18 @@ Merging upstream into `tofu` is a plain merge except in these places:
 - If upstream adds an entry to `Backgrounds/BACKGROUNDS.json` or `Sounds/SOUNDS.json` that names a removed file, restore that file from `main`.
 - If `libraries/TuneScope.xml` changes upstream, keep its `src_load` of `Midi.js` pointing at `libraries/TuneScope/tonejs/package/Midi.js`. Check that no other file the IDE loads sits under a folder named `build` or `dist`.
 - Before pinning again, check that GitHub's archive of the commit is at most 50 MB with no file over 25 MiB.
+- `src/gui.js`: a conflict appears only if upstream edits the top of the file, the "Download source" item in `IDE_Morph.prototype.snapMenu` or the last line of `aboutTxt` in `IDE_Morph.prototype.aboutSnap`. Keep both links on this fork, and move them to the new tag when pinning again.
+
+## Source links
+
+Snap! is under the GNU AGPL v3, so a copy must offer the people who use it the source of the version they are using. Two places in the IDE show it:
+
+- **Download source** in the Snap! logo menu opens https://github.com/tofu-gallery/snap/tree/pin/2026-10-24: this fork at the tag on the commit that added the links (a commit cannot name its own hash, so the tag names it).
+- The **About** dialog (Snap! logo menu, About...) ends with "Source code of this modified copy:" and the same address, which opens when clicked.
+
+Both addresses are in `src/gui.js`. Snap!'s canvas fills the whole window, so a link placed on the page would cover the IDE's own controls; the About dialog shows the address without that.
+
+An owner who changes the code of their copy must point both links at their own source, a public repository or archive of exactly what their copy serves. When this fork is pinned again, the commit that gets the new tag must move both links to that tag.
 
 ## Verification
 
@@ -79,18 +92,21 @@ A headless Chrome run, driven over the DevTools protocol, then opened `http://12
 - All 75 requests went to the local server, none failed, and no request went to another site.
 - The only console output was Chrome's performance hint about `getImageData`, raised by upstream's unchanged `src/morphic.js`.
 
+On 2026-10-24, after step 7, a copy of the working tree without `.git` and the `build/` and `dist/` folders (1,090 files) was served the same way. `curl` showed the new address in the served `src/gui.js` and no link to upstream's release. A headless Chromium (Playwright) opened the IDE with no page error, no failed request and no request to another site. It clicked **Download source** in the Snap! logo menu, which opened https://github.com/tofu-gallery/snap/tree/pin/2026-10-24, and then clicked that address in the About dialog, which opened it too.
+
 ## License
 
 Snap! is free software under the GNU Affero General Public License v3.0, copyright (C) 2008-2026 Jens Mönig and Brian Harvey, with contributions credited in the source files. The upstream `LICENSE` file and all copyright notices are preserved; libraries and assets keep their own licences and notices.
 
-Modification notices (AGPL-3.0 section 5(a)), dated 2026-10-23:
+Modification notices (AGPL-3.0 section 5(a)), dated 2026-10-23 unless a line gives another date:
 
 - `snap.html` was modified as described in step 1. It carries its own notice at the top.
+- `src/gui.js` was modified on 2026-10-24 as described in step 7. It carries its own notice at the top.
 - `libraries/TuneScope.xml` was modified as described in step 5: one `src_load` path changed. Snap!'s XML reader has no comment syntax, so this notice stands here instead of in the file.
 - Added: `TOFU.md`, and `libraries/TuneScope/tonejs/package/Midi.js`, an unchanged copy of the MIT-licensed `build/Midi.js`.
 - Removed: the files listed in steps 2 to 4.
 
-A copy serves Snap!'s unminified source files as they are. The complete corresponding source of this modified version is this fork at the tag `pin/2026-10-23`. The IDE's "Download source" menu item still opens upstream's latest release.
+A copy serves Snap!'s unminified source files as they are. The complete corresponding source of this modified version is this fork at the tag `pin/2026-10-24`, which the IDE's "Download source" menu item and About dialog open (see "Source links").
 
 ## Files removed in step 4
 

@@ -1,4 +1,13 @@
 /*
+    Modified on 2026-10-24 for the Tofu Gallery copy
+    (github.com/tofu-gallery/snap, branch tofu): the "Download source" menu
+    item (IDE_Morph.prototype.snapMenu) and the end of the About dialog's text
+    (IDE_Morph.prototype.aboutSnap) point at this copy's own source,
+    https://github.com/tofu-gallery/snap/tree/pin/2026-10-24, instead of
+    upstream's latest release. See TOFU.md.
+*/
+
+/*
 
     gui.js
 
@@ -4560,7 +4569,7 @@ IDE_Morph.prototype.snapMenu = function () {
     menu.addItem(
         'Download source',
         () => window.open(
-                'https://github.com/jmoenig/Snap/releases/latest',
+                'https://github.com/tofu-gallery/snap/tree/pin/2026-10-24',
                 'SnapSource'
             )
     );
@@ -5880,7 +5889,10 @@ IDE_Morph.prototype.aboutSnap = function () {
         + 'The design of Snap! is influenced and inspired by Scratch,\n'
         + 'from the Lifelong Kindergarten group at the MIT Media Lab\n\n'
 
-        + 'for more information see https://snap.berkeley.edu';
+        + 'for more information see https://snap.berkeley.edu\n\n'
+
+        + 'Source code of this modified copy:\n'
+        + 'https://github.com/tofu-gallery/snap/tree/pin/2026-10-24';
 
     noticeTxt = localize('License')
         + '\n\n'
