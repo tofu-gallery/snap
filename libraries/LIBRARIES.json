@@ -677,6 +677,10 @@
         "name": "Text als vestits",
         "description": "Genera vestits utilitzant lletres, paraules... o qualevol text."
       },
+      "de": {
+        "name": "Textkostüme",
+        "description": "Kostüme aus Buchstaben oder Worten erstellen"
+      },
       "gl": {
         "name": "Traxes de texto",
         "description": "Xerar traxes a partires de letras ou palabras… ou calquera texto."
@@ -1953,6 +1957,10 @@
       "ca": {
         "name": "Escrivint i formatant text",
         "description": "Escriu text utilitzant les fonts de Tethrarxitet"
+      },
+      "de": {
+        "name": "Typographie",
+        "description": "Schriftsatz mit verschiedenen Schriftarten, beigesteuert von Tethrarxitet"
       },
       "zh_CN": {
         "name": "画笔美术字库",
