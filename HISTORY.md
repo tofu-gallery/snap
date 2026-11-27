@@ -2,6 +2,16 @@
 
 ## in development:
 
+### 2026-11-27
+* extensions: prevent animation of stage resizing when warped
+
+### 2026-11-26
+* Catalan and Spanish translation update, thanks, Joan!
+* presentation library update (permanent buttons, restored after translation PR)
+* blocks, store: new "lock" feature for hat blocks (used for cursed pedagogical puzzles)
+* German translation update ('lock', 'unlock')
+* threads: changed evaluation of special form ("unevaluated") slots to actually eval variable getters and reporters claiming to report a function, reporter, or script. This makes the behavior of unevaluated slots consistent with rings.
+
 ### 2026-11-25
 * store: fixed an occasional serialization bug for hidden stages (now that we have them, sigh!)
 * extensions: fixed "obj_name" for off-IDE objects
